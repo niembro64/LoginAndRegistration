@@ -1,0 +1,62 @@
+* {
+    font-family: sans-serif;
+    background-color: rgba(0, 0, 0, 0);
+    color: white;
+}
+
+input[type="button"],
+input[type="submit"],
+select,
+option {
+    padding: 10px 20px;
+    margin: 3px;
+    color: white;
+    background-color: grey;
+    border-radius: 6px;
+}
+
+body {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: black;
+}
+
+.unit {
+    flex: 1;
+    border-color: white;
+    background: rgba(255, 255, 255, 0.164);
+    border-radius: 10px;
+    border-style: solid;
+    padding: 30px;
+    margin: 30px;
+}
+
+h1,
+h2 {
+    width: auto;
+    background: rgba(255, 255, 255, 0.164);
+    border-radius: 10px;
+    border-style: solid;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+}
+
+#nindo {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+input,
+textarea {
+    background-color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
