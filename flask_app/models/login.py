@@ -23,7 +23,19 @@ class Login:
     @classmethod
     def get_user(cls, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
-        results = connectToMySQL("login_and_registration").query_db(query, data)
+        results = connectToMySQL(
+            "login_and_registration").query_db(query, data)
+        all_users = []
+        for row in results:
+            one_user = cls(row)
+            # all_users.append(one_user)
+        return one_user
+
+    @classmethod
+    def get_user_by_email(cls, data):
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        results = connectToMySQL(
+            "login_and_registration").query_db(query, data)
         all_users = []
         for row in results:
             one_user = cls(row)
@@ -33,7 +45,8 @@ class Login:
     @classmethod
     def get_id_from_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s"
-        results = connectToMySQL("login_and_registration").query_db(query, data)
+        results = connectToMySQL(
+            "login_and_registration").query_db(query, data)
         all_users = []
         for row in results:
             # pass
@@ -42,6 +55,30 @@ class Login:
         # all_users = cls(results)
         user_id = all_users[0].id
         return user_id
+
+    ####################################
+
+    @staticmethod
+    def l_email_exists(data):
+        exists = False
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        results = connectToMySQL(
+            "login_and_registration").query_db(query, data)
+        #all_users = []
+        #for row in results:
+        #    all_users.append(row)
+        #    # all_users.append(one_user)
+
+        #if all_users[0]["email"] == data["email"]:
+        #if "niemeyer.eric@gmail.com" == data["email"]:
+        #    exists = True
+        
+        if len(results) > 0:
+            exists = True
+        else:
+            flash("Account doesn't exist.", "login")
+
+        return exists
 
     @staticmethod
     def validate_register(reg_info):
@@ -52,34 +89,34 @@ class Login:
 
         # Length checks
         if len(reg_info["r_first_name"]) < 2:
-            flash("First Name must be at least 2 characters.","register")
+            flash("First Name must be at least 2 characters.", "register")
             is_valid = False
         if len(reg_info["r_last_name"]) < 2:
-            flash("Last Name must be at least 2 characters.","register")
+            flash("Last Name must be at least 2 characters.", "register")
             is_valid = False
         if len(reg_info["r_email"]) < 2:
-            flash("Email must be at least 2 characters.","register")
+            flash("Email must be at least 2 characters.", "register")
             is_valid = False
         if len(reg_info["r_password"]) < 8:
-            flash("Password must be at least 8 characters.","register")
+            flash("Password must be at least 8 characters.", "register")
             is_valid = False
         if len(reg_info["r_confirm_password"]) < 8:
-            flash("Password must be at least 8 characters.","register")
+            flash("Password must be at least 8 characters.", "register")
             is_valid = False
 
         # Check Email Stuff
         snail = "@"
         dot = "."
         if not snail in reg_info["r_email"]:
-            flash("@ must be in Email.","register")
+            flash("@ must be in Email.", "register")
             is_valid = False
         if not dot in reg_info["r_email"]:
-            flash(". must be in Email.","register")
+            flash(". must be in Email.", "register")
             is_valid = False
-        
+
         # Check Matching Passwords
         if not reg_info["r_confirm_password"] == reg_info["r_password"]:
-            flash("Passwords must match.","register")
+            flash("Passwords must match.", "register")
             is_valid = False
 
         return is_valid
@@ -88,12 +125,22 @@ class Login:
     def validate_login(log_info):
         is_valid = True
 
-                # Length checks
+        # Length checks
         if len(log_info["l_email"]) < 2:
-            flash("Email must be at least 2 characters.","login")
+            flash("Email is at least 2 characters.", "login")
             is_valid = False
         if len(log_info["l_password"]) < 8:
-            flash("Password must be at least 8 characters.","login")
+            flash("Password is at least 8 characters.", "login")
+            is_valid = False
+
+                # Check Email Stuff
+        snail = "@"
+        dot = "."
+        if not snail in log_info["l_email"]:
+            flash("@ must be in Email.", "login")
+            is_valid = False
+        if not dot in log_info["l_email"]:
+            flash(". must be in Email.", "login")
             is_valid = False
 
         return is_valid

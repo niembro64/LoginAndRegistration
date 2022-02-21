@@ -23,10 +23,26 @@ def show_user(user_id):
     else:
         return redirect("/")
 
-#################
+########################
 
 @app.route("/login_user", methods=["POST"])
 def fun_login():
+
+    data = {
+        "email": request.form["l_email"]
+    }
+
+    if not Login.l_email_exists(data):
+        return redirect("/")
+
+    one_user = Login.get_user_by_email(data)
+
+
+    if not bcrypt.check_password_hash(one_user.password, request.form['l_password']):
+        flash("Bad Password.", "login")
+        return redirect("/")
+
+
 
     if not Login.validate_login(request.form):
         return redirect("/")
