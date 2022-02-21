@@ -48,6 +48,7 @@ class Login:
         is_valid = True
 
         # Is submitted
+        # Don't know how to do this
 
         # Length checks
         if len(reg_info["r_first_name"]) < 2:
@@ -59,11 +60,11 @@ class Login:
         if len(reg_info["r_email"]) < 2:
             flash("Email must be at least 2 characters.","register")
             is_valid = False
-        if len(reg_info["r_password"]) < 2:
-            flash("Password must be at least 2 characters.","register")
+        if len(reg_info["r_password"]) < 8:
+            flash("Password must be at least 8 characters.","register")
             is_valid = False
-        if len(reg_info["r_confirm_password"]) < 2:
-            flash("Password must be at least 2 characters.","register")
+        if len(reg_info["r_confirm_password"]) < 8:
+            flash("Password must be at least 8 characters.","register")
             is_valid = False
 
         # Check Email Stuff
@@ -91,8 +92,8 @@ class Login:
         if len(log_info["l_email"]) < 2:
             flash("Email must be at least 2 characters.","login")
             is_valid = False
-        if len(log_info["l_password"]) < 2:
-            flash("Password must be at least 2 characters.","login")
+        if len(log_info["l_password"]) < 8:
+            flash("Password must be at least 8 characters.","login")
             is_valid = False
 
         return is_valid

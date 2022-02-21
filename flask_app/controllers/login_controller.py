@@ -1,3 +1,4 @@
+from gettext import NullTranslations
 from flask_app import app
 from flask import render_template, request, redirect, flash, session
 
@@ -68,3 +69,12 @@ def fun_register():
     session['email'] = data["email"]
 
     return redirect(f"/user/{user_id}")
+
+@app.route("/log_out", methods=["POST"])
+def fun_log_out():
+    session['user_id'] = ""
+    session['first_name'] = ""
+    session['last_name'] = ""
+    session['password'] = ""
+    session['email'] = ""
+    return redirect("/")
