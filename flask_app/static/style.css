@@ -14,6 +14,10 @@
     color: white;
 }
 
+.flashes {
+    font-style: italic;
+}
+
 body {
     display: flex;
     justify-content: space-between;

@@ -25,16 +25,35 @@ class Login:
         is_valid = True
 
         # Length checks
-        if len(login["first_name"]) < 2:
+        if len(login["r_first_name"]) < 2:
             flash("First Name must be at least 2 characters.")
             is_valid = False
-        if len(login["last_name"]) < 2:
+        if len(login["r_last_name"]) < 2:
             flash("Last Name must be at least 2 characters.")
             is_valid = False
-        if len(login["email"]) < 2:
+        if len(login["r_email"]) < 2:
             flash("Email must be at least 2 characters.")
             is_valid = False
-        if len(login["password"]) < 2:
+        if len(login["r_password"]) < 2:
             flash("Password must be at least 2 characters.")
             is_valid = False
+        if len(login["r_confirm_password"]) < 2:
+            flash("Password must be at least 2 characters.")
+            is_valid = False
+
+        # Check Email Stuff
+        snail = "@"
+        dot = "."
+        if not snail in login["r_email"]:
+            flash("@ must be in Email.")
+            is_valid = False
+        if not dot in login["r_email"]:
+            flash(". must be in Email.")
+            is_valid = False
+        
+        # Check Matching Passwords
+        if not login["r_confirm_password"] == login["r_password"]:
+            flash("Passwords must match.")
+            is_valid = False
+
         return is_valid
