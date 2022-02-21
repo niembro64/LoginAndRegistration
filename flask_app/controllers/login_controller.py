@@ -23,10 +23,12 @@ def fun_login():
         "email": request.form["l_email"]
     }
 
-    one_user = Login.get_user_from_email(data)
+    all_users = Login.get_user_from_email(data)
 
-    user_id = one_user["id"]
 
+    one_user = all_users[0]
+
+    session['id'] = one_user["id"]
     session['first_name'] = one_user["first_name"]
     session['last_name'] = one_user["last_name"]
     session['password'] = one_user["password"]

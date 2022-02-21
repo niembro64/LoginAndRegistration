@@ -34,8 +34,10 @@ class Login:
         results = connectToMySQL("login_and_registration").query_db(query, data)
         all_users = []
         for row in results:
+            # pass
             one_user = cls(row)
-        all_users.append(one_user)
+            all_users.append(one_user)
+
         return all_users
 
     @staticmethod
