@@ -21,5 +21,7 @@ def fun_register():
         "password": request.form["r_password"],
         "email": request.form["r_email"]
     }
+    if not Login.validate_login(data):
+        return redirect("/")
     user_id = Login.save_user(data)
     return redirect("/user/3")

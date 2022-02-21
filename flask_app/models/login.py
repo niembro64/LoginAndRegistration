@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
 
 
 class Login:
@@ -19,4 +20,21 @@ class Login:
         new_id = connectToMySQL("login_and_registration").query_db(query, data)
         return new_id
 
+    @staticmethod
+    def validate_login(login):
+        is_valid = True
 
+        # Length checks
+        if len(login["first_name"]) < 2:
+            flash("First Name must be at least 2 characters.")
+            is_valid = False
+        if len(login["last_name"]) < 2:
+            flash("Last Name must be at least 2 characters.")
+            is_valid = False
+        if len(login["email"]) < 2:
+            flash("Email must be at least 2 characters.")
+            is_valid = False
+        if len(login["password"]) < 2:
+            flash("Password must be at least 2 characters.")
+            is_valid = False
+        return is_valid
