@@ -12,6 +12,49 @@
         <title>Login Project</title>
     </head>
     <body>
-        <h1>Assignment: Login & Registration</h1>
+        <h1 id="header">Assignment: Login & Registration</h1>
+
+        <div id="main">
+            <div class="unit">
+                <h2 class="r">Register</h2>
+                <form action="/register">
+                    <label for="r_first_name">First Name:</label>
+                    <input type="text" name="r_first_name" />
+                    <label for="r_last_name">Last Name:</label>
+                    <input type="text" name="r_last_name" />
+                    <label for="r_email">Email:</label>
+                    <input type="text" name="r_email" />
+                    <label for="r_password">Password:</label>
+                    <input type="password" name="r_password" />
+                    <label for="r_confirm_password">Confirm Password:</label>
+                    <input type="password" name="r_confirm_password" />
+
+                    <input
+                        class="r"
+                        type="submit"
+                        name="register"
+                        id="register"
+                        value="Register"
+                    />
+                </form>
+            </div>
+            <div class="unit">
+                <h2 class="l">Login</h2>
+                <form action="/register">
+                    <label for="l_email">Email:</label>
+                    <input type="text" name="l_email" />
+                    <label for="l_password">Password:</label>
+                    <input type="password" name="l_password" />
+
+                    <input
+                        class="l"
+                        type="submit"
+                        name="login"
+                        id="login"
+                        value="Login"
+                    />
+                </form>
+            </div>
+        </div>
     </body>
 </html>
