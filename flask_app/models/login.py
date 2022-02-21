@@ -51,34 +51,48 @@ class Login:
 
         # Length checks
         if len(reg_info["r_first_name"]) < 2:
-            flash("First Name must be at least 2 characters.")
+            flash("First Name must be at least 2 characters.","register")
             is_valid = False
         if len(reg_info["r_last_name"]) < 2:
-            flash("Last Name must be at least 2 characters.")
+            flash("Last Name must be at least 2 characters.","register")
             is_valid = False
         if len(reg_info["r_email"]) < 2:
-            flash("Email must be at least 2 characters.")
+            flash("Email must be at least 2 characters.","register")
             is_valid = False
         if len(reg_info["r_password"]) < 2:
-            flash("Password must be at least 2 characters.")
+            flash("Password must be at least 2 characters.","register")
             is_valid = False
         if len(reg_info["r_confirm_password"]) < 2:
-            flash("Password must be at least 2 characters.")
+            flash("Password must be at least 2 characters.","register")
             is_valid = False
 
         # Check Email Stuff
         snail = "@"
         dot = "."
         if not snail in reg_info["r_email"]:
-            flash("@ must be in Email.")
+            flash("@ must be in Email.","register")
             is_valid = False
         if not dot in reg_info["r_email"]:
-            flash(". must be in Email.")
+            flash(". must be in Email.","register")
             is_valid = False
         
         # Check Matching Passwords
         if not reg_info["r_confirm_password"] == reg_info["r_password"]:
-            flash("Passwords must match.")
+            flash("Passwords must match.","register")
+            is_valid = False
+
+        return is_valid
+
+    @staticmethod
+    def validate_login(log_info):
+        is_valid = True
+
+                # Length checks
+        if len(log_info["l_email"]) < 2:
+            flash("Email must be at least 2 characters.","login")
+            is_valid = False
+        if len(log_info["l_password"]) < 2:
+            flash("Password must be at least 2 characters.","login")
             is_valid = False
 
         return is_valid

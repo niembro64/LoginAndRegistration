@@ -19,6 +19,9 @@ def show_user(user_id):
 @app.route("/login_user", methods=["POST"])
 def fun_login():
 
+    if not Login.validate_login(request.form):
+        return redirect("/")
+
     data = {
         "email": request.form["l_email"]
     }

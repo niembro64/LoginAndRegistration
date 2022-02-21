@@ -29,14 +29,16 @@
                     <label for="r_confirm_password">Confirm Password:</label>
                     <input type="password" name="r_confirm_password" />
 
-                    {% with messages = get_flashed_messages() %} {% if messages
-                    %}
-                    <ul class="flashes">
-                        {% for message in messages %}
-                        <li>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %} {% endwith %}
+                    {% with messages = get_flashed_messages("r") %} {% if
+                        messages %} 
+                        <ul class="flashes">
+                            {% for message in messages %}
+                            {% if message[0] == "register" %}
+                            <li>{{ message[1] }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% endif %} {% endwith %}
 
                     <input
                         class="r"
@@ -54,6 +56,17 @@
                     <input type="text" name="l_email" />
                     <label for="l_password">Password:</label>
                     <input type="password" name="l_password" />
+
+                    {% with messages = get_flashed_messages("r") %} {% if
+                    messages %} 
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        {% if message[0] == "login" %}
+                        <li>{{ message[1] }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {% endwith %}
 
                     <input
                         class="l"
