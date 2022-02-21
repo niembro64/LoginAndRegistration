@@ -27,7 +27,12 @@ def fun_login():
 
     user_id = one_user["id"]
 
-    return redirect(f"/user/2")
+    session['first_name'] = one_user["first_name"]
+    session['last_name'] = one_user["last_name"]
+    session['password'] = one_user["password"]
+    session['email'] = one_user["email"]
+
+    return redirect(f"/user/{user_id}")
 
 
 
