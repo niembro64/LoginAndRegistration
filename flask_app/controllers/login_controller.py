@@ -13,7 +13,15 @@ def show_index():
 
 @app.route("/user/<int:user_id>")
 def show_user(user_id):
-    return render_template("show_user.html")
+
+    if not session['user_id'] == user_id:
+        s_id = session['user_id']
+        return redirect(f"/user/{s_id}")
+
+    if session['user_id'] > 0:
+        return render_template("show_user.html")
+    else:
+        return redirect("/")
 
 #################
 
@@ -72,7 +80,7 @@ def fun_register():
 
 @app.route("/log_out", methods=["POST"])
 def fun_log_out():
-    session['user_id'] = ""
+    session['user_id'] = 0
     session['first_name'] = ""
     session['last_name'] = ""
     session['password'] = ""
