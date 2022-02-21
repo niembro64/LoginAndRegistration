@@ -23,16 +23,19 @@ def fun_login():
         "email": request.form["l_email"]
     }
 
-    all_users = Login.get_user_from_email(data)
+    user_id = Login.get_id_from_email(data)
 
+    data = {
+        "id": user_id
+    }
 
-    one_user = all_users[0]
-
-    session['id'] = one_user["id"]
-    session['first_name'] = one_user["first_name"]
-    session['last_name'] = one_user["last_name"]
-    session['password'] = one_user["password"]
-    session['email'] = one_user["email"]
+    one_user = Login.get_user(data)
+  
+    session['user_id'] = one_user.id
+    session['first_name'] = one_user.first_name
+    session['last_name'] = one_user.last_name
+    session['password'] = one_user.password
+    session['email'] = one_user.email
 
     return redirect(f"/user/{user_id}")
 

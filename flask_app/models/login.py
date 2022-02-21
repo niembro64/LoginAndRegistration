@@ -22,14 +22,16 @@ class Login:
 
     @classmethod
     def get_user(cls, data):
-        query = "SELECT * FROM users WHERE id = %(user_id)s;"
-        a = connectToMySQL("login_and_registration").query_db(query, data)
-        one_user = []
-        one_user.append(cls(a))
+        query = "SELECT * FROM users WHERE id = %(id)s;"
+        results = connectToMySQL("login_and_registration").query_db(query, data)
+        all_users = []
+        for row in results:
+            one_user = cls(row)
+            # all_users.append(one_user)
         return one_user
 
     @classmethod
-    def get_user_from_email(cls, data):
+    def get_id_from_email(cls, data):
         query = "SELECT * FROM users WHERE email = %(email)s"
         results = connectToMySQL("login_and_registration").query_db(query, data)
         all_users = []
@@ -37,8 +39,9 @@ class Login:
             # pass
             one_user = cls(row)
             all_users.append(one_user)
-
-        return all_users
+        # all_users = cls(results)
+        user_id = all_users[0].id
+        return user_id
 
     @staticmethod
     def validate_register(reg_info):
