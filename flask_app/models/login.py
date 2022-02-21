@@ -20,9 +20,19 @@ class Login:
         new_id = connectToMySQL("login_and_registration").query_db(query, data)
         return new_id
 
+    @classmethod
+    def get_user(cls, data):
+        query = "SELECT * users WHERE id = %(user_id)s;"
+        a = connectToMySQL("login_and_registration").query_db(query, data)
+        one_user = []
+        one_user.append(cls(a))
+        return one_user
+
     @staticmethod
-    def validate_login(login):
+    def validate_register(login):
         is_valid = True
+
+        # Is submitted
 
         # Length checks
         if len(login["r_first_name"]) < 2:
