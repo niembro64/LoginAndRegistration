@@ -22,47 +22,57 @@ class Login:
 
     @classmethod
     def get_user(cls, data):
-        query = "SELECT * users WHERE id = %(user_id)s;"
+        query = "SELECT * FROM users WHERE id = %(user_id)s;"
         a = connectToMySQL("login_and_registration").query_db(query, data)
         one_user = []
         one_user.append(cls(a))
         return one_user
 
+    @classmethod
+    def get_user_from_email(cls, data):
+        query = "SELECT * FROM users WHERE email = %(email)s"
+        results = connectToMySQL("login_and_registration").query_db(query, data)
+        all_users = []
+        for row in results:
+            one_user = cls(row)
+        all_users.append(one_user)
+        return all_users
+
     @staticmethod
-    def validate_register(login):
+    def validate_register(reg_info):
         is_valid = True
 
         # Is submitted
 
         # Length checks
-        if len(login["r_first_name"]) < 2:
+        if len(reg_info["r_first_name"]) < 2:
             flash("First Name must be at least 2 characters.")
             is_valid = False
-        if len(login["r_last_name"]) < 2:
+        if len(reg_info["r_last_name"]) < 2:
             flash("Last Name must be at least 2 characters.")
             is_valid = False
-        if len(login["r_email"]) < 2:
+        if len(reg_info["r_email"]) < 2:
             flash("Email must be at least 2 characters.")
             is_valid = False
-        if len(login["r_password"]) < 2:
+        if len(reg_info["r_password"]) < 2:
             flash("Password must be at least 2 characters.")
             is_valid = False
-        if len(login["r_confirm_password"]) < 2:
+        if len(reg_info["r_confirm_password"]) < 2:
             flash("Password must be at least 2 characters.")
             is_valid = False
 
         # Check Email Stuff
         snail = "@"
         dot = "."
-        if not snail in login["r_email"]:
+        if not snail in reg_info["r_email"]:
             flash("@ must be in Email.")
             is_valid = False
-        if not dot in login["r_email"]:
+        if not dot in reg_info["r_email"]:
             flash(". must be in Email.")
             is_valid = False
         
         # Check Matching Passwords
-        if not login["r_confirm_password"] == login["r_password"]:
+        if not reg_info["r_confirm_password"] == reg_info["r_password"]:
             flash("Passwords must match.")
             is_valid = False
 

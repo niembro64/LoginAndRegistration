@@ -16,6 +16,21 @@ def show_user(user_id):
 
 #################
 
+@app.route("/login_user", methods=["POST"])
+def fun_login():
+
+    data = {
+        "email": request.form["l_email"]
+    }
+
+    one_user = Login.get_user_from_email(data)
+
+    user_id = one_user["id"]
+
+    return redirect(f"/user/2")
+
+
+
 @app.route("/register_user", methods=["POST"])
 def fun_register():
 
