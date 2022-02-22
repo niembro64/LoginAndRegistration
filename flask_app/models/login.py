@@ -124,7 +124,7 @@ class Login:
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
         if not EMAIL_REGEX.match(reg_info["r_email"]):
             flash("Email does not meet REGEX requirements.", "register")
-            isvalid = False
+            is_valid = False
 
         return is_valid
 
