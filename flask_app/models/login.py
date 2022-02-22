@@ -1,5 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash
+import re
 
 
 class Login:
@@ -118,6 +119,12 @@ class Login:
         if not reg_info["r_confirm_password"] == reg_info["r_password"]:
             flash("Passwords must match.", "register")
             is_valid = False
+
+        # Regex Attempt
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+        if not EMAIL_REGEX.match(reg_info["r_email"]):
+            flash("Email does not meet REGEX requirements.", "register")
+            isvalid = False
 
         return is_valid
 
